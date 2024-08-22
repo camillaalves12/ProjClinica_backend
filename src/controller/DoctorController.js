@@ -23,7 +23,8 @@ export default {
 
       return res.json(doctor)
     } catch (error) {
-      return res.json({ error })
+      console.error(error) 
+      return res.json({ error:error.message })
     }
   },
 
@@ -33,7 +34,7 @@ export default {
       return res.json(doctors)
 
     } catch (error) {
-      return res.json({ error })
+      return res.json({ error: error.message || 'Erro interno do servidor'})
 
     }
   },

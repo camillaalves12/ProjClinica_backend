@@ -130,7 +130,7 @@ export default {
   async updatePatient(req, res) {
     try {
       const { id } = req.params
-      const { nome, cpf, data_de_nascimento, telefone, sexo, clinicaId } = req.body
+      const { nome, cpf, data_de_nascimento, telefone, sexo} = req.body
 
       const patient = await prisma.paciente.findUnique({
         where: { id: Number(id) }
@@ -141,33 +141,31 @@ export default {
       const updatedPatient = await prisma.paciente.update(
         {
           where: { id: Number(id) },
-          data: { nome, cpf, data_de_nascimento, telefone, sexo, clinicaId }
+          data: { nome, cpf, data_de_nascimento, telefone, sexo }
         })
 
       return res.json(updatedPatient);
     } catch (error) {
-      res.json({ error })
+      res.json({ error: error.message })
     }
   },
 
   async deletePatient(req, res) {
     try {
-      const { id } = req.params
-
+      const { id } = req.params;
+  
       const patient = await prisma.paciente.findUnique({
         where: { id: Number(id) }
-      })
-
-      if (!patient) return res.status(400).json({ error: "Não foram encontrados pacientes com esse ID!" })
-
-      await prisma.patient.delete({ where: { id: Number(id) } })
-
-      return res.json({ message: "Paciente deletado!" })
-
+      });
+  
+      if (!patient) return res.status(400).json({ error: "Não foram encontrados pacientes com esse ID!" });
+  
+      await prisma.paciente.delete({ where: { id: Number(id) } });
+  
+      return res.json({ message: "Paciente deletado!" });
+  
     } catch (error) {
-      return res.json({ error })
-
+      return res.json({ error: error.message });
     }
-  },
-
+  }
 }

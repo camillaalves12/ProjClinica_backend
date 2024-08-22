@@ -19,23 +19,23 @@ router.route('/user')
   .get(AuthMiddleware, UserController.findAllUsers);
 
 router.route('/user/:id')
-  .post(UserController.createUser)
+  .post(AuthMiddleware, UserController.createUser)
   .get(AuthMiddleware, UserController.findUser)
   .put(AuthMiddleware, UserController.updateUser)
   .delete(AuthMiddleware, UserController.deleteUser);
 
 router.route('/clinic')
-  .post(ClinicController.createClinic)
+  .post(AuthMiddleware, ClinicController.createClinic)
   .get(AuthMiddleware, ClinicController.findAllClinics);
 
 router.route('/clinic/:id')
   .get(AuthMiddleware, ClinicController.findClinic)
   .put(AuthMiddleware, ClinicController.updateClinic)
-  .delete(AuthMiddleware, ClinicController.deleteClinic);
+  .delete(AuthMiddleware, ClinicController.deleteClinic);  // criar caso for usar. 
 
 router.route('/doctor')
   .post(AuthMiddleware, DoctorController.createDoctor) // criar, ainda não consegui
-  .get(AuthMiddleware, DoctorController.findAllDoctors);
+  .get(AuthMiddleware, DoctorController.findAllDoctors); // criar, ainda não consegui
 
 router.route('/doctor/:id')
   .get(AuthMiddleware, DoctorController.findDoctor) // criar, ainda não consegui
@@ -48,8 +48,8 @@ router.route('/professional')
 router.route('/professional/:id')
   .post(AuthMiddleware, ProfessionalController.createProfessional)
   .get(AuthMiddleware, ProfessionalController.findProfessional)
-  .put(AuthMiddleware, ProfessionalController.updateProfessional) // criar, ainda não consegui
-  .delete(AuthMiddleware, ProfessionalController.deleteProfessional); // criar, ainda não consegui
+  .put(AuthMiddleware, ProfessionalController.updateProfessional) 
+  .delete(AuthMiddleware, ProfessionalController.deleteProfessional); 
 
 router.route('/professionalForName')
   .post(AuthMiddleware, ProfessionalController.findProfessionalForName); 
@@ -60,8 +60,8 @@ router.route('/patients')
 router.route('/patient/:id')
   .post(AuthMiddleware, PatientController.createPatient)
   .get(AuthMiddleware, PatientController.findPatient)
-  .put(AuthMiddleware, PatientController.updatePatient) // criar, ainda não consegui
-  .delete(AuthMiddleware, PatientController.deletePatient); // criar, ainda não consegui
+  .put(AuthMiddleware, PatientController.updatePatient) 
+  .delete(AuthMiddleware, PatientController.deletePatient);
 
 router.route('/patientForName')
   .post(AuthMiddleware, PatientController.findPatientForName);
@@ -71,6 +71,13 @@ router.route('/patientForDateOfBirth')
 
 router.route('/patientForCPF')
   .post(AuthMiddleware, PatientController.findPatientForCPF);
+
+
+
+
+
+
+
 
 router.route('/consult/:id')
   .post(AuthMiddleware, ConsultController.createConsult)
