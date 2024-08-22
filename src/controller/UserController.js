@@ -22,12 +22,14 @@ export default {
         return res.json({ error: "Já existe usuário com esse email" })
       }
 
+      const role = admin.toUpperCase() === 'ADMIN' ? 'ADMIN' : 'USER';
+
       user = await prisma.usuario.create({
         data: {
           nome,
           email,
           senha: hashPassword,
-          admin,
+          admin: role,
           clinicaId: clinic.id
         }, include: {
           clinica: true
@@ -36,7 +38,7 @@ export default {
 
       return res.json(user)
     } catch (error) {
-      return res.json({ error })
+      return res.json({ error:error.message })
     }
   },
 
